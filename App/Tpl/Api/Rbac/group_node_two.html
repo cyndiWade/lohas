@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<!-- 全局样式 -->	<include file="Public:top" />
+	<!-- BEGIN PAGE LEVEL STYLES -->	<style type="text/css">		.wade_check_box {			display:none  !important;		}	</style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+		<include file="Public:header" />
+	
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container row-fluid">
+		<!-- 左侧导航 -->		<include file="Public:sidebar" />		
+		<!-- BEGIN PAGE -->  
+		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div id="portlet-config" class="modal hide">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button"></button>
+					<h3>portlet Settings</h3>
+				</div>
+				<div class="modal-body">
+					<p>Here will be a configuration form</p>
+				</div>
+			</div>
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<!-- BEGIN PAGE CONTAINER-->
+			<div class="container-fluid">
+				<!-- BEGIN PAGE HEADER-->   
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN STYLE CUSTOMIZER -->
+
+						<!-- END BEGIN STYLE CUSTOMIZER -->   
+						<h3 class="page-title">
+							{$MODULE_NAME}
+							 <small>{$ACTION_NAME}</small>
+						</h3>
+					</div>
+				</div>
+				<!-- END PAGE HEADER-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN SAMPLE FORM PORTLET-->   
+						<div class="portlet box blue">
+							<div class="portlet-title">
+								<div class="caption"><i class="icon-reorder"></i>{$group_name.name}--{$group_name.title}</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse"></a>
+									<a href="#portlet-config" data-toggle="modal" class="config"></a>
+									<a href="javascript:;" class="reload"></a>
+									<a href="javascript:;" class="remove"></a>
+								</div>
+							</div>
+							<div class="portlet-body form">
+								<!-- BEGIN FORM-->
+								<form action="?s=/Admin/Rbac/group_node_update" method="post"  class="form-horizontal">									<input type="hidden" name="group_id" value="{$group_id}" />
+
+									<div class="control-group">
+										<label class="control-label">选择权限：</label>
+										<div class="controls">
+											<div class="row-fluid">
+												<div class="span3">													<volist name="node_group" id="vo">														<p>															<input type="checkbox" {$vo.checked} name="node[]" value="{$vo.id}" />																	<input type="checkbox" {$vo.checked} name="have_node[]" value="{$vo.id}" class="wade_check_box"/>															<span class="wade_local" data-url="?s=/Admin/Rbac/group_node_two/group_id/{$group_id}/module_pid/{$vo.id}">{$vo.name}-({$vo.title})</span>														</p>													</volist>
+												</div>
+												<div class="span3">
+													<volist name="node_module" id="vo">														<p>															<input type="checkbox" {$vo.checked}  name="node[]" value="{$vo.id}"  />															<input type="checkbox" {$vo.checked} name="have_node[]" value="{$vo.id}" class="wade_check_box"/>															<span class="wade_local" data-url="?s=/Admin/Rbac/group_node_two/group_id/{$group_id}/module_pid/{$module_pid}/action_pid/{$vo.id}">{$vo.name}-({$vo.title})</span>														</p>													</volist>
+												</div>												<div class="span3">													<volist name="node_action" id="vo">														<p>															<input type="checkbox" {$vo.checked}  name="node[]" value="{$vo.id}"  />															<input type="checkbox" {$vo.checked} name="have_node[]" value="{$vo.id}" class="wade_check_box"/>															<span class="wade_local" data-url="?s=/Admin/Rbac/group_node_two/group_id/{$group_id}/module_pid/{$vo.id}">{$vo.name}-({$vo.title})</span>														</p>													</volist>												</div>
+											</div>
+										</div>
+									</div>
+																											<div class="form-actions">
+										<button type="submit" class="btn blue">Submit</button>
+										<button type="button" class="btn">Cancel</button>                            
+									</div>
+								</form>
+								<!-- END FORM-->       
+							</div>
+						</div>
+						<!-- END SAMPLE FORM PORTLET-->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT-->         
+			</div>
+			<!-- END PAGE CONTAINER-->
+		</div>
+		<!-- END PAGE -->  
+	</div>
+	<!-- END CONTAINER -->
+	<!-- BEGIN FOOTER -->
+	<!-- 页脚 -->	<include file="Public:foot" />
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	<!-- 核心插件 -->	<include file="Public:bottom" />
+
+	<!-- END PAGE LEVEL PLUGINS -->
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script src="{$Think.const.APP_PATH}Public/media/js/app.js"></script>
+    
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<script>
+		jQuery(document).ready(function() {       		var wade_local = $('span.wade_local');		wade_local.click(function (event) {			var _this = $(this);			location.href =_this.data('url');		});
+		   // initiate layout and plugins
+		//   App.init();
+
+		});
+	</script>
+	<!-- END JAVASCRIPTS -->   
+<!-- END BODY -->
+</html>

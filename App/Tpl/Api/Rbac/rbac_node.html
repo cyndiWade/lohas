@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>	<!-- 全局样式 -->	<include file="Public:top" />
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link rel="stylesheet" type="text/css" href="{$Think.const.APP_PATH}Public/media/css/select2_metro.css" />
+	<link rel="stylesheet" href="{$Think.const.APP_PATH}Public/media/css/DT_bootstrap.css" />
+	<!-- END PAGE LEVEL STYLES -->	<style type="text/css">					</style>	
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+	<include file="Public:header" />
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container row-fluid">
+		<!-- 左侧导航 -->		<include file="Public:sidebar" />
+		<!-- BEGIN PAGE -->
+		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div id="portlet-config" class="modal hide">
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button"></button>
+					<h3>portlet Settings</h3>
+				</div>
+				<div class="modal-body">
+					<p>Here will be a configuration form</p>
+				</div>
+			</div>
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<!-- BEGIN PAGE CONTAINER-->        
+			<div class="container-fluid">
+				<!-- BEGIN PAGE HEADER-->
+				<div class="row-fluid">
+					<div class="span12">
+					
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+						<h3 class="page-title">
+							权限管理 <small>节点管理</small>
+						</h3>
+						<!-- END PAGE TITLE & BREADCRUMB-->
+					</div>
+				</div>
+				<!-- END PAGE HEADER-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+						<div class="portlet box light-grey">
+							<div class="portlet-title">
+								<div class="caption"><i class="icon-globe"></i>节点列表</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse"></a>									
+									<a href="javascript:;" class="reload"></a>			
+								</div>
+							</div>							<!-- 第一级节点 -->
+							<div class="portlet-body">
+								<div class="clearfix">
+									<div class="btn-group">																		<a href="?s=/Admin/Rbac/node_edit/type/add/pid/0/level/1">
+											<button id="sample_editable_1_new" class="btn green">
+											添加系统<i class="icon-plus"></i>
+											</button>										</a>								
+									</div>								</div>
+								<table class="table table-striped table-bordered table-hover sample_1">
+									<thead>
+										<tr>
+											<th>节点名称</th>
+											<th class="hidden-480">节点说明</th>
+											<th class="hidden-480">节点等级</th>
+											<th class="hidden-480">节点状态</th>
+											<th >操作</th>
+										</tr>
+									</thead>
+									<tbody>																		<volist name="node1" id="vo">
+										<tr class="odd gradeX" onclick="javascript:window.location.href='?s=/Admin/Rbac/rbac_node/pid/{$vo.id}'">
+											<td>{$vo.name}</td>
+											<td class="hidden-480">{$vo.title}</a></td>
+											<td class="hidden-480">{$vo.level}</td>
+											<td class="center hidden-480">												<if condition="($vo.status eq 0)">													启用												<else />												<span style="color:red;">禁用</span>												</if>											</td>
+											<td >												<if condition="($vo.status eq 0)">                                            	<a href="?s=/Admin/Rbac/node_status/status/1/id/{$vo.id}">禁用</a>												<else />												<a href="?s=/Admin/Rbac/node_status/status/0/id/{$vo.id}">启用</a>												</if>												|<a href="?s=/Admin/Rbac/node_edit/type/update/pid/{$vo.id}">编辑</a>												|<a href="?s=/Admin/Rbac/node_edit/type/delete/pid/{$vo.id}" class="check">删除</a>											</td>
+										</tr>										</volist>
+									</tbody>
+								</table>
+							</div>							<!-- 第一级结束 -->													<!-- 第二级节点-->							<if condition="$node2">							<div class="portlet-body">								<div class="clearfix">									<div class="btn-group">										<a href="?s=/Admin/Rbac/node_edit/type/add/pid/{$pid}/level/2">											<button id="sample_editable_1_new" class="btn green">											添加新模块 <i class="icon-plus"></i>											</button>										</a>																	</div>								</div>								<table class="table table-striped table-bordered table-hover sample_1">									<thead>										<tr>											<th>节点名称</th>											<th class="hidden-480">节点说明</th>											<th class="hidden-480">节点等级</th>											<th class="hidden-480">节点状态</th>											<th >操作</th>										</tr>									</thead>									<tbody>																		<volist name="node2" id="vo">										<tr class="odd gradeX" onclick="javascript:window.location.href='?s=/Admin/Rbac/rbac_node/pid/{$vo.pid}/pid2/{$vo.id}'">											<td>{$vo.name}</td>											<td class="hidden-480">{$vo.title}</a></td>											<td class="hidden-480">{$vo.level}</td>											<td class="center hidden-480">												<if condition="($vo.status eq 0)">												启用												<else />												<span style="color:red;">禁用</span>												</if>											</td>											<td >												<if condition="($vo.status eq 0)">                                            	<a href="?s=/Admin/Rbac/node_status/status/1/id/{$vo.id}">禁用</a>												<else />												<a href="?s=/Admin/Rbac/node_status/status/0/id/{$vo.id}">启用</a>												</if>												|<a href="?s=/Admin/Rbac/node_edit/type/update/pid/{$vo.id}">编辑</a>												|<a href="?s=/Admin/Rbac/node_edit/type/delete/pid/{$vo.id}" class="check">删除</a>											</td>										</tr>										</volist>									</tbody>								</table>							</div>														<elseif condition="$pid"/>														<div class="portlet-body">								<div class="clearfix">									<div class="btn-group">										<a href="?s=/Admin/Rbac/node_edit/type/add/pid/{$pid}/level/2">											<button id="sample_editable_1_new" class="btn green">											添加新模块 <i class="icon-plus"></i>											</button>										</a>																	</div>								</div>								<table class="table table-striped table-bordered table-hover sample_1">									<thead>										<tr>											<th>节点名称</th>											<th class="hidden-480">节点说明</th>											<th class="hidden-480">节点等级</th>											<th class="hidden-480">节点状态</th>											<th >操作</th>										</tr>									</thead>									<tbody>																	</tbody>								</table>							</div>														</if>							<!-- 第二级结束-->																					<!-- 第三级节点 -->							<if condition="$node3">							<div class="portlet-body">								<div class="clearfix">									<div class="btn-group">														<a href="?s=/Admin/Rbac/node_edit/type/add/pid/{$pid2}/level/3">											<button id="sample_editable_1_new" class="btn green">											添加新方法 <i class="icon-plus"></i>											</button>										</a>																	</div>								</div>								<table class="table table-striped table-bordered table-hover sample_1">									<thead>										<tr>											<th>节点名称</th>											<th class="hidden-480">节点说明</th>											<th class="hidden-480">节点等级</th>											<th class="hidden-480">节点状态</th>											<th >操作</th>										</tr>									</thead>									<tbody>																		<volist name="node3" id="vo">										<tr class="odd gradeX">											<td>{$vo.name}</td>											<td class="hidden-480">{$vo.title}</a></td>											<td class="hidden-480">{$vo.level}</td>											<td class="center hidden-480">												<if condition="($vo.status eq 0)">												启用												<else />												<span style="color:red;">禁用</span>												</if>											</td>											<td >												<if condition="($vo.status eq 0)">                                            	<a href="?s=/Admin/Rbac/node_status/status/1/id/{$vo.id}">禁用</a>												<else />												<a href="?s=/Admin/Rbac/node_status/status/0/id/{$vo.id}">启用</a>												</if>												|<a href="?s=/Admin/Rbac/node_edit/type/update/pid/{$vo.id}">编辑</a>												|<a href="?s=/Admin/Rbac/node_edit/type/delete/pid/{$vo.id}" class="check">删除</a>											</td>										</tr>										</volist>									</tbody>								</table>							</div>														<elseif condition="$pid2"/>							<div class="portlet-body">								<div class="clearfix">									<div class="btn-group">																		<a href="?s=/Admin/Rbac/node_edit/type/add/pid/{$pid2}/level/3">											<button id="sample_editable_1_new" class="btn green">											添加新方法 <i class="icon-plus"></i>											</button>										</a>																	</div>								</div>								<table class="table table-striped table-bordered table-hover sample_1">									<thead>										<tr>											<th>节点名称</th>											<th class="hidden-480">节点说明</th>											<th class="hidden-480">节点等级</th>											<th class="hidden-480">节点状态</th>											<th >操作</th>										</tr>									</thead>									<tbody>																			</tbody>								</table>							</div>							</if>							<!-- 第三级结束 -->							
+						</div>
+						<!-- END EXAMPLE TABLE PORTLET-->
+					</div>
+				</div>				<!-- END PAGE CONTENT-->
+			</div>
+			<!-- END PAGE CONTAINER-->
+		</div>
+		<!-- END PAGE -->
+	</div>
+	<!-- END CONTAINER -->
+	<!-- 页脚 -->	<include file="Public:foot" />	<!-- 核心插件 -->	<include file="Public:bottom" />
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script type="text/javascript" src="{$Think.const.APP_PATH}Public/media/js/select2.min.js"></script>
+	<script type="text/javascript" src="{$Think.const.APP_PATH}Public/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="{$Think.const.APP_PATH}Public/media/js/DT_bootstrap.js"></script>
+	<!-- END PAGE LEVEL PLUGINS -->
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script type="text/javascript" src="{$Think.const.APP_PATH}Public/media/js/app.js"></script>
+	<script type="text/javascript" src="{$Think.const.APP_PATH}Public/media/js/table-managed.js"></script>     
+	<script type="text/javascript">
+		jQuery(document).ready(function() {       
+		   App.init();
+		   TableManaged.init();
+		});
+	</script>	</body>
+
+<!-- END BODY -->
+</html>
